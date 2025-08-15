@@ -25,5 +25,4 @@ This project uses the following libraries:
 
 ## License
 
-This project is licensed under the **MIT License**, with the exception of some portions of the code.  
-Please refer to the **[LICENSE](./LICENSE)** file for more details.
+This project is licensed under the **MIT License**. Please refer to the **[LICENSE](./LICENSE)** file for more details.
