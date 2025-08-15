@@ -25,4 +25,8 @@ This project uses the following libraries:
 
 ## License
 
-This project is licensed under the **MIT License**. Please refer to the **[LICENSE](./LICENSE)** file for more details.
+This project is licensed under the **MIT License**.  
+See the **[LICENSE](./LICENSE)** file for more details.
+
+Third-party libraries used by 04Bit.NET are distributed under their own licenses.  
+Please refer to each library's documentation for license information.
