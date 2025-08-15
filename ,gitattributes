@@ -1,0 +1,34 @@
+* text=auto                    
+*.cs text diff=csharp          
+*.csproj text diff=xml         
+*.sln text                     
+*.config text                  
+*.xml text                     
+*.json text 
+
+*.sh eol=lf             
+*.bat eol=crlf          
+*.ps1 eol=crlf       
+
+*.hlsl text diff=shader
+*.glsl text diff=shader
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.bmp binary
+*.ico binary
+*.gif binary
+*.tga binary
+*.fbx binary
+*.obj binary
+*.dll binary
+*.exe binary
+*.zip binary
+*.7z binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.mp4 binary
+*.dll binary
+*.exe binary
