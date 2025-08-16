@@ -37,7 +37,7 @@ namespace Runtime
         /// <summary>
         /// 디스플레이 크기 조절 여부.
         /// </summary>
-        public bool ShouldResizable
+        public bool IsResizable
         {
             get;
             set;
@@ -46,7 +46,7 @@ namespace Runtime
         /// <summary>
         /// 디스플레이 테두리 여부.
         /// </summary>
-        public bool ShouldBorderless
+        public bool IsBorderless
         {
             get;
             set;
@@ -55,7 +55,7 @@ namespace Runtime
         /// <summary>
         /// 디스플레이 V-Sync 활성화 여부.
         /// </summary>
-        public bool ShouldVSync
+        public bool IsVSync
         {
             get;
             set;

@@ -80,7 +80,7 @@ namespace Runtime
             }
         }
 
-        public bool ShouldResizable
+        public bool IsResizable
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Runtime
             }
         }
 
-        public bool ShouldBorderless
+        public bool IsBorderless
         {
             get
             {
@@ -122,7 +122,7 @@ namespace Runtime
         /// </summary>
         private bool mSholudVSync;
 
-        public bool ShouldVSync
+        public bool IsVSync
         {
             get => mSholudVSync;
             set

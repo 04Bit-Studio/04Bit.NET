@@ -33,5 +33,23 @@ namespace Runtime
             get;
             init;
         }
+
+        public required bool ShouldResizable
+        {
+            get;
+            init;
+        }
+
+        public required bool ShouldBorderless
+        {
+            get;
+            init;
+        }
+
+        public required bool ShouldVSync
+        {
+            get;
+            init;
+        }
     }
 }
