@@ -17,17 +17,14 @@ namespace Runtime
         /// <summary>
         /// GLFW 윈도우 핸들.
         /// </summary>
-        private unsafe readonly WindowHandle* mWindow;
+        private readonly unsafe WindowHandle* mWindow;
 
         /// <summary>
         /// 윈도우 타이틀.
-        /// GLFW 레벨에서는 타이틀 가져오기가 되는데 여기서는 안됨;;
+        /// (네이티브에서는 타이틀 가져오기가 되는데 Slik.NET에서는 안됨;;)
         /// </summary>
         private string mTitle;
 
-        /// <summary>
-        /// 윈도우 타이틀.
-        /// </summary>
         public string Title
         {
             get => mTitle;
@@ -41,79 +38,36 @@ namespace Runtime
             }
         }
 
-        public Vector2D<int> Position
+        public unsafe Vector2D<int> Position
         {
             get
             {
-                unsafe
-                {
-                    mBackend.GetWindowPos(mWindow, out int x, out int y);
-                    return new Vector2D<int>(x, y);
-                }
+                mBackend.GetWindowPos(mWindow, out int x, out int y);
+                return new Vector2D<int>(x, y);
             }
-            set
-            {
-                unsafe
-                {
-                    mBackend.SetWindowPos(mWindow, value.X, value.Y);
-                }
-            }
+            set => mBackend.SetWindowPos(mWindow, value.X, value.Y);
         }
 
-        public Vector2D<int> Size
+        public unsafe Vector2D<int> Size
         {
             get
             {
-                unsafe
-                {
                     mBackend.GetWindowSize(mWindow, out int width, out int height);
                     return new Vector2D<int>(width, height);
-                }
             }
-
-            set
-            {
-                unsafe
-                {
-                    mBackend.SetWindowSize(mWindow, value.X, value.Y);
-                }
-            }
+            set => mBackend.SetWindowSize(mWindow, value.X, value.Y);
         }
 
-        public bool IsResizable
+        public unsafe bool IsResizable
         {
-            get
-            {
-                unsafe
-                {
-                    return mBackend.GetWindowAttrib(mWindow, WindowAttributeGetter.Resizable);
-                }
-            }
-            set
-            {
-                unsafe
-                {
-                    mBackend.SetWindowAttrib(mWindow,WindowAttributeSetter.Resizable, value);
-                }
-            }
+            get => mBackend.GetWindowAttrib(mWindow, WindowAttributeGetter.Resizable);
+            set => mBackend.SetWindowAttrib(mWindow,WindowAttributeSetter.Resizable, value);
         }
 
-        public bool IsBorderless
+        public unsafe bool IsBorderless
         {
-            get
-            {
-                unsafe
-                {
-                    return mBackend.GetWindowAttrib(mWindow, WindowAttributeGetter.Decorated);
-                }
-            }
-            set
-            {
-                unsafe
-                {
-                    mBackend.SetWindowAttrib(mWindow, WindowAttributeSetter.Decorated, value);
-                }
-            }
+            get => mBackend.GetWindowAttrib(mWindow, WindowAttributeGetter.Decorated);
+            set => mBackend.SetWindowAttrib(mWindow, WindowAttributeSetter.Decorated, value);
         }
 
         /// <summary>
@@ -136,7 +90,11 @@ namespace Runtime
         {
             mBackend = Glfw.GetApi();
 
-            mBackend.Init();
+            if (!mBackend.Init())
+            {
+                throw new InvalidOperationException("Failed to initialize GLFW.");
+            }
+
             mBackend.WindowHint(WindowHintInt.ContextVersionMinor, 3);
             mBackend.WindowHint(WindowHintInt.ContextVersionMajor, 3);
             mBackend.WindowHint(WindowHintOpenGlProfile.OpenGlProfile, OpenGlProfile.Core);
@@ -157,7 +115,7 @@ namespace Runtime
                 if (mWindow == null)
                 {
                     mBackend.Terminate();
-                    throw new Exception("Failed to create GLFW window.");
+                    throw new InvalidOperationException("Failed to create GLFW window.");
                 }
 
                 mBackend.MakeContextCurrent(mWindow);
