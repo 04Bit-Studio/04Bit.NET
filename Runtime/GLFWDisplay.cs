@@ -104,7 +104,7 @@ namespace Runtime
             {
                 int    width  = property.Size.X;
                 int    height = property.Size.Y;
-                string title  = (mTitle = property.Title) ?? throw new NullReferenceException();
+                string title  = mTitle;
 
                 mWindow = mBackend.CreateWindow(width,
                                                 height,
@@ -120,6 +120,48 @@ namespace Runtime
 
                 mBackend.MakeContextCurrent(mWindow);
                 mBackend.SwapInterval(1);
+
+                mTitle = Title;
+            }
+        }
+
+        // 테스트용 (DI: Dependency Injection)
+        public GLFWDisplay(DisplayCreateProperty property, Glfw backend)
+        {
+            mBackend = backend;
+
+            if (!mBackend.Init())
+            {
+                throw new InvalidOperationException("Failed to initialize GLFW.");
+            }
+
+            mBackend.WindowHint(WindowHintInt.ContextVersionMinor, 3);
+            mBackend.WindowHint(WindowHintInt.ContextVersionMajor, 3);
+            mBackend.WindowHint(WindowHintOpenGlProfile.OpenGlProfile, OpenGlProfile.Core);
+            mBackend.WindowHint(WindowHintBool.Resizable, true);
+
+            unsafe
+            {
+                int    width  = property.Size.X;
+                int    height = property.Size.Y;
+                string title  = mTitle;
+
+                mWindow = mBackend.CreateWindow(width,
+                                                height,
+                                                title,
+                                                null,
+                                                null);
+
+                if (mWindow == null)
+                {
+                    mBackend.Terminate();
+                    throw new InvalidOperationException("Failed to create GLFW window.");
+                }
+
+                mBackend.MakeContextCurrent(mWindow);
+                mBackend.SwapInterval(1);
+
+                mTitle = Title;
             }
         }
 

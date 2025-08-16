@@ -1,12 +1,10 @@
-﻿using System.Text;
-
-using Silk.NET.Maths;
+﻿using Silk.NET.Maths;
 using Silk.NET.SDL;
 
 namespace Runtime
 {
     public class SDLDisplay : IDisposable
-                            , IDisplayProperty
+    , IDisplayProperty
     {
         /// <summary>
         /// SDL API.
@@ -55,7 +53,7 @@ namespace Runtime
                 unsafe
                 {
                     mSizeCache = value;
-                    mBackend.SetWindowPosition(mWindow, value.X, value.Y);
+                    mBackend.SetWindowSize(mWindow, value.X, value.Y);
                 }
             }
         }
@@ -65,7 +63,7 @@ namespace Runtime
             get
             {
                 uint flags = mBackend.GetWindowFlags(mWindow);
-                return (flags & (uint)WindowFlags.Resizable) != 0;
+                return (flags & (uint) WindowFlags.Resizable) != 0;
             }
             set
             {
@@ -79,7 +77,7 @@ namespace Runtime
             get
             {
                 uint flags = mBackend.GetWindowFlags(mWindow);
-                return (flags & (uint)WindowFlags.Borderless) != 0;
+                return (flags & (uint) WindowFlags.Borderless) != 0;
             }
             set
             {
@@ -93,11 +91,11 @@ namespace Runtime
             get
             {
                 uint flags = mBackend.GetWindowFlags(mWindow);
-                return (flags & (uint)WindowFlags.Fullscreen) != 0;
+                return (flags & (uint) WindowFlags.Fullscreen) != 0;
             }
             set
             {
-                uint flag = (uint)(value ? WindowFlags.Fullscreen : WindowFlags.FullscreenDesktop);
+                uint flag = (uint) (value ? WindowFlags.Fullscreen : WindowFlags.FullscreenDesktop);
                 mBackend.SetWindowFullscreen(mWindow, flag);
             }
         }
@@ -120,11 +118,11 @@ namespace Runtime
             unsafe
             {
                 mWindow = mBackend.CreateWindow(property.Title,
-                                                property.Position.X,
-                                                property.Position.Y,
-                                                property.Size.X,
-                                                property.Size.Y,
-                                                0);
+                property.Position.X,
+                property.Position.Y,
+                property.Size.X,
+                property.Size.Y,
+                0);
 
                 if (mWindow == null)
                 {
@@ -151,5 +149,6 @@ namespace Runtime
 
                 mBackend.Quit();
             }
+        }
     }
 }
